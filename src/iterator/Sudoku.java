@@ -1,7 +1,10 @@
 package iterator;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class Sudoku implements Iterable<Integer>{
     private int size;
@@ -14,7 +17,13 @@ public class Sudoku implements Iterable<Integer>{
     }
 
     public boolean checkSudoku() {
-        return false;
+//        boolean isvalid = true;
+//        for (SudokuPart row : getRows()) {
+//            isvalid &= row.isValid();
+//        }
+//        return isvalid;
+
+        return StreamSupport.stream(getRows().spliterator(), true).allMatch(SudokuPart::isValid);
     }
 
     @Override
@@ -41,6 +50,27 @@ public class Sudoku implements Iterable<Integer>{
         };
     }
 
+    public Iterable<SudokuPart> getRows() {
+        return () -> new Iterator<SudokuPart>() {
+            int i = 0;
+            @Override
+            public boolean hasNext() {
+                return i < size;
+            }
+
+            @Override
+            public SudokuPart next() {
+                // Nehme i-te Zeile und verwandle sie in eine Collection.
+                Collection<Integer> value = Arrays.stream(board[i]).boxed().collect(Collectors.toList());
+                i++;
+                return new SudokuPart(value);
+            }
+        };
+    }
+
+
+
+
     public static void main(String[] args) {
         int[][] board = new int[][]{
                 {8, 3, 5, 4, 1, 6, 9, 2, 7},
@@ -55,9 +85,12 @@ public class Sudoku implements Iterable<Integer>{
 
         Sudoku sudoku = new Sudoku(board);
 
-        for (Integer integer : sudoku) {
-            System.out.println(integer);
-        }
+//        Iterator<Integer> iterator = sudoku.iterator();
+//        while (iterator.hasNext()) {
+//            System.out.println(iterator.next());
+//        }
+
+        System.out.println(sudoku.checkSudoku());
 
     }
 }
