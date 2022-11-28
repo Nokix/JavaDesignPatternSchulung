@@ -13,6 +13,7 @@ public class UndoCommand implements Command{
     public void execute() {
         if(commandStack.empty()) return;
         commandStack.pop().getReverseCommand().execute();
+        commandStack.pop();
     }
 
     public static void resetHistory() {

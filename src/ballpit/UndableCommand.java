@@ -1,5 +1,10 @@
 package ballpit;
 
-public interface UndableCommand extends Command{
-    Command getReverseCommand();
+public abstract class UndableCommand implements Command{
+    abstract UndableCommand getReverseCommand();
+
+    @Override
+    public void execute() {
+        UndoCommand.addUndoableCommand(this);
+    }
 }
