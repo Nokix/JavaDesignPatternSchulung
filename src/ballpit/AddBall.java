@@ -1,6 +1,6 @@
 package ballpit;
 
-public class AddBall implements Command{
+public class AddBall implements UndableCommand{
     Ball ball;
     BallPit reciever;
 
@@ -11,6 +11,12 @@ public class AddBall implements Command{
 
     @Override
     public void execute() {
+        UndoCommand.addUndoableCommand(this);
         reciever.addBall(ball);
+    }
+
+    @Override
+    public Command getReverseCommand() {
+        return new RemoveBall(reciever);
     }
 }

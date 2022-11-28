@@ -57,6 +57,7 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
         switch (e.getKeyChar()) {
             case 'a' -> command = new AddBall(new Ball(), ballPit);
             case 'r' -> command = new RemoveBall(ballPit);
+            case 'u' -> command = new UndoCommand();
         }
         if (command != null) command.execute();
     }
