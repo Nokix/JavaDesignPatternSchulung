@@ -2,16 +2,20 @@ package ballpit;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class BallPanel extends JPanel implements MouseListener {
+public class BallPanel extends JPanel implements MouseListener, KeyListener {
     private final BallPit ballPit;
     private int max_x;
     private int max_y;
 
     public BallPanel(BallPit ballPit, int max_x, int max_y) {
         addMouseListener(this);
+        addKeyListener(this);
+        setFocusable(true);
         this.ballPit = ballPit;
         this.max_x = max_x;
         this.max_y = max_y;
@@ -47,6 +51,15 @@ public class BallPanel extends JPanel implements MouseListener {
     }
 
     @Override
+    public void keyTyped(KeyEvent e) {
+        Command command = null;
+        switch (e.getKeyChar()) {
+            case 'a' -> command = new AddBall(new Ball(), ballPit);
+        }
+        if (command != null) command.execute();
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
 
     }
@@ -63,6 +76,17 @@ public class BallPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
 
     }
 }
