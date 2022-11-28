@@ -10,12 +10,11 @@ public class Demo {
         server.register("Vasil@Aleksandrov.de", "1233456", UserType.USER);
         server.register("Ivan@Khanenko.de", "sicheresPassword", UserType.ADMIN);
 
-        ThrottlingChecker throttlingChecker = new ThrottlingChecker(3);
-        UserExistChecker userExistChecker = new UserExistChecker(server);
-        throttlingChecker.setNext(userExistChecker);
-        server.setLoginHandler(throttlingChecker);
-//        new PasswordChecker();
-//        new Greeter();
+        server.setLoginHandler(Handler.link(
+                new ThrottlingChecker(3),
+                new UserExistChecker(server),
+                new PasswordChecker(server))
+        );
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         boolean success = false;

@@ -14,6 +14,15 @@ public abstract class Handler {
         return true;
     }
 
+    public static Handler link(Handler root, Handler... allRemainingHandlers) {
+        Handler head = root;
+        for (Handler handler : allRemainingHandlers) {
+            head.next = handler;
+            head = handler;
+        }
+        return root;
+    }
+
     public void setNext(Handler next) {
         this.next = next;
     }

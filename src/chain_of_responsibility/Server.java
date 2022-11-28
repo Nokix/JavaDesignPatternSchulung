@@ -28,4 +28,8 @@ public class Server {
     public boolean userExist(String email) {
         return mailPasswordMap.containsKey(email);
     }
+
+    public boolean isValidPassword(String email, String password) {
+        return mailPasswordMap.containsKey(email) && mailPasswordMap.get(email).equals(password);
+    }
 }
