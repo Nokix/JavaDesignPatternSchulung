@@ -1,6 +1,6 @@
 package prototype.java_interface;
 
-public class InnerClass {
+public class InnerClass implements Cloneable{
     private int y;
     private String str;
 
@@ -23,5 +23,16 @@ public class InnerClass {
                 "y=" + y +
                 ", str='" + str + '\'' +
                 '}';
+    }
+
+    @Override
+    public InnerClass clone() {
+        try {
+            InnerClass clone = (InnerClass) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

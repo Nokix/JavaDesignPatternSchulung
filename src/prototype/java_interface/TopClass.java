@@ -21,7 +21,7 @@ public class TopClass implements Cloneable{
     public TopClass clone() {
         try {
             TopClass clone = (TopClass) super.clone();
-            //
+            clone.innerClass = this.innerClass.clone();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
