@@ -3,7 +3,7 @@ package ballpit;
 import java.awt.Color;
 import java.util.Iterator;
 
-public class ChangeColorToGreen extends UndableCommand {
+public class ChangeColorToGreen implements Command {
     BallPit reciever;
 
     public ChangeColorToGreen(BallPit reciever) {
@@ -12,15 +12,13 @@ public class ChangeColorToGreen extends UndableCommand {
 
     @Override
     public void execute() {
-        super.execute();
-        Iterator<Ball> iterator = reciever.getBallPits().iterator();
-        while(iterator.hasNext()) {
-        	iterator.next().setColor(new Color(0,130,0));
+        for (Ball ball : reciever) {
+            ball.setColor(new Color(0, 130, 0));
         }
-    }
 
-    @Override
-    public UndableCommand getReverseCommand() {
-        return new RemoveBall(reciever);
+//        Iterator<Ball> iterator = reciever.iterator();
+//        while(iterator.hasNext()) {
+//        	iterator.next().setColor(new Color(0,130,0));
+//        }
     }
 }
