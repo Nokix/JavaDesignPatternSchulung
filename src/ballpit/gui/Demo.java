@@ -16,11 +16,14 @@ public class Demo extends JFrame {
 
         BallPit ballPit = new BallPit();
         BallPanel ballPanel = new BallPanel(ballPit, width, height);
+        ballPanel.setLayout(new BoxLayout(ballPanel, BoxLayout.Y_AXIS));
 
         DisplayCount displayCount = new DisplayCount();
         ballPanel.subscribe(displayCount);
         ballPanel.add(displayCount);
 
+        JLabel label = new JLabel("What is happening.");
+        ballPanel.add(label);
         add(ballPanel);
     }
 
