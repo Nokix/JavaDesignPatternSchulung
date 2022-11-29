@@ -11,8 +11,8 @@ public class Ball {
     int speedX;
     int speedY;
     public Color color;
-
-    public Ball() {
+    
+	public Ball() {
         this.color = new Color(
                 ThreadLocalRandom.current().nextInt(0, 256),
                 ThreadLocalRandom.current().nextInt(0, 256),
@@ -20,7 +20,6 @@ public class Ball {
         this.speedX = ThreadLocalRandom.current().nextInt(-10, 11);
         this.speedY = ThreadLocalRandom.current().nextInt(-10, 11);
     }
-
     public int getX() {
         return x;
     }
@@ -46,4 +45,8 @@ public class Ball {
         if (x > max_x || x < 0) speedX *= (-1);
         if (y > max_y || y < 0) speedY *= (-1);
     }
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
 }

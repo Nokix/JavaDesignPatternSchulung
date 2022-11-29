@@ -18,4 +18,8 @@ public class BallPit implements Iterable<Ball>{
     public Iterator<Ball> iterator() {
         return balls.iterator();
     }
+
+	public Stack<Ball> getBallPits()  {
+		return balls;
+	}
 }
