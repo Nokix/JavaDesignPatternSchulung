@@ -1,6 +1,6 @@
 package prototype.java_interface;
 
-public class TopClass {
+public class TopClass implements Cloneable{
     private int x;
     private InnerClass innerClass;
 
@@ -21,7 +21,7 @@ public class TopClass {
     public TopClass clone() {
         try {
             TopClass clone = (TopClass) super.clone();
-            //
+            clone.innerClass = this.innerClass.clone();
             return clone;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
