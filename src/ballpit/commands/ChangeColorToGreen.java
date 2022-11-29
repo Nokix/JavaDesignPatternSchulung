@@ -1,7 +1,9 @@
-package ballpit;
+package ballpit.commands;
+
+import ballpit.internals.Ball;
+import ballpit.internals.BallPit;
 
 import java.awt.Color;
-import java.util.Iterator;
 
 public class ChangeColorToGreen implements Command {
     BallPit reciever;

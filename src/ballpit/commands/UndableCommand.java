@@ -1,6 +1,6 @@
-package ballpit;
+package ballpit.commands;
 
-public abstract class UndableCommand implements Command{
+public abstract class UndableCommand implements Command {
     abstract UndableCommand getReverseCommand();
 
     @Override

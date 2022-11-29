@@ -1,4 +1,4 @@
-package ballpit;
+package ballpit.internals;
 
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;

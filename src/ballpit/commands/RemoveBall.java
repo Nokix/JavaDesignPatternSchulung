@@ -1,6 +1,9 @@
-package ballpit;
+package ballpit.commands;
 
-public class RemoveBall extends UndableCommand{
+import ballpit.internals.Ball;
+import ballpit.internals.BallPit;
+
+public class RemoveBall extends UndableCommand {
     BallPit reciever;
     private Ball removedBall;
 

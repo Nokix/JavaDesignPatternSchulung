@@ -1,8 +1,8 @@
-package ballpit;
+package ballpit.commands;
 
 import java.util.Stack;
 
-public class UndoCommand implements Command{
+public class UndoCommand implements Command {
     static Stack<UndableCommand> commandStack = new Stack<>();
 
     public static void addUndoableCommand(UndableCommand command) {

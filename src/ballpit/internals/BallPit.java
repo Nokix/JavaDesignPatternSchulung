@@ -1,4 +1,4 @@
-package ballpit;
+package ballpit.internals;
 
 import java.util.Iterator;
 import java.util.Stack;

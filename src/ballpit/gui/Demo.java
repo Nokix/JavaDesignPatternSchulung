@@ -1,4 +1,7 @@
-package ballpit;
+package ballpit.gui;
+
+import ballpit.internals.Ball;
+import ballpit.internals.BallPit;
 
 import javax.swing.*;
 import java.awt.*;

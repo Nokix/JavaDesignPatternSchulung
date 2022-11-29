@@ -1,4 +1,8 @@
-package ballpit;
+package ballpit.gui;
+
+import ballpit.internals.Ball;
+import ballpit.internals.BallPit;
+import ballpit.commands.*;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -9,9 +13,10 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 public class BallPanel extends JPanel implements MouseListener, KeyListener {
-    private final BallPit ballPit;
+    private BallPit ballPit;
     private int max_x;
     private int max_y;
+    private Memento savePoint = null;
 
     public BallPanel(BallPit ballPit, int max_x, int max_y) {
         addMouseListener(this);
@@ -60,9 +65,39 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
             case 'r': command = new RemoveBall(ballPit); break;
             case 'u': command = new UndoCommand(); break;
             case 'c': command = new ChangeColorToGreen(ballPit); break;
+            case 's': save(); break;
+            case 'l': restore(); break;
 //            case 'z': command = new ChangeColorToPrevious(ballPit);  break;
         }
         if (command != null) command.execute();
+    }
+
+    class Memento {
+        BallPit ballPitM;
+        int max_xM;
+        int max_yM;
+
+        public Memento(BallPanel ballPanel) {
+            this.ballPitM = ballPanel.ballPit.clone();
+            this.max_xM = ballPanel.max_x;
+            this.max_yM = ballPanel.max_y;
+        }
+    }
+
+    public void restore() {
+        if(this.savePoint != null) restore(this.savePoint);
+    }
+
+    public void restore(Memento memento) {
+        this.ballPit = memento.ballPitM;
+        this.max_x = memento.max_xM;
+        this.max_y = memento.max_yM;
+    }
+
+    public Memento save() {
+        Memento memento = new Memento(this);
+        this.savePoint = memento;
+        return memento;
     }
 
     @Override
