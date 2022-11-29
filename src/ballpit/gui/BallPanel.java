@@ -118,6 +118,7 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
         this.ballPit = memento.ballPitM.clone();
         this.max_x = memento.max_xM;
         this.max_y = memento.max_yM;
+        notifySubscribers(this);
     }
 
     public Memento save() {
