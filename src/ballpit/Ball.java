@@ -3,7 +3,7 @@ package ballpit;
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Ball {
+public class Ball implements Cloneable{
     private int x = 0;
     private int y = 0;
     private int ballWidth = 50;
@@ -49,4 +49,14 @@ public class Ball {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+
+    @Override
+    public Ball clone() {
+        try {
+            Ball clone = (Ball) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

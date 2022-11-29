@@ -1,6 +1,6 @@
 package prototype.java_interface;
 
-public class TopClass {
+public class TopClass implements Cloneable{
     private int x;
     private InnerClass innerClass;
 
