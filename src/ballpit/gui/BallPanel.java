@@ -3,12 +3,15 @@ package ballpit.gui;
 import ballpit.internals.Ball;
 import ballpit.internals.BallPit;
 import ballpit.commands.*;
+import ballpit.observer.Subscriber;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JPanel;
 
@@ -17,6 +20,7 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
     private int max_x;
     private int max_y;
     private Memento savePoint = null;
+    private Collection<Subscriber> subscribers = new ArrayList<>();
 
     public BallPanel(BallPit ballPit, int max_x, int max_y) {
         addMouseListener(this);
@@ -25,6 +29,22 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
         this.ballPit = ballPit;
         this.max_x = max_x;
         this.max_y = max_y;
+    }
+
+    public BallPit getBallPit() {
+        return ballPit;
+    }
+
+    public void subscribe(Subscriber subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    public void unsubscribe(Subscriber subscriber) {
+        subscribers.remove(subscriber);
+    }
+
+    public void notifySubscribers(Object event) {
+        subscribers.parallelStream().forEach(subscriber -> subscriber.update(event));
     }
 
     @Override
@@ -54,7 +74,10 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
             case MouseEvent.BUTTON1 : command = new AddBall(new Ball(), ballPit); break;
             case MouseEvent.BUTTON3 : command = new RemoveBall(ballPit); break;
         }
-        if (command != null) command.execute();
+        if (command != null){
+            command.execute();
+            notifySubscribers(this);
+        }
     }
 
     @Override
@@ -69,7 +92,10 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
             case 'l': restore(); break;
 //            case 'z': command = new ChangeColorToPrevious(ballPit);  break;
         }
-        if (command != null) command.execute();
+        if (command != null) {
+            command.execute();
+            notifySubscribers(this);
+        }
     }
 
     class Memento {
@@ -89,7 +115,7 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
     }
 
     public void restore(Memento memento) {
-        this.ballPit = memento.ballPitM;
+        this.ballPit = memento.ballPitM.clone();
         this.max_x = memento.max_xM;
         this.max_y = memento.max_yM;
     }

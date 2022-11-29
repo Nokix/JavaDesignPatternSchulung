@@ -2,6 +2,7 @@ package ballpit.gui;
 
 import ballpit.internals.Ball;
 import ballpit.internals.BallPit;
+import ballpit.observer.DisplayCount;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +15,12 @@ public class Demo extends JFrame {
         setSize(width, height);
 
         BallPit ballPit = new BallPit();
-        ballPit.addBall(new Ball());
         BallPanel ballPanel = new BallPanel(ballPit, width, height);
+
+        DisplayCount displayCount = new DisplayCount();
+        ballPanel.subscribe(displayCount);
+        ballPanel.add(displayCount);
+
         add(ballPanel);
     }
 
