@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -21,17 +22,28 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
     private int max_y;
     private Memento savePoint = null;
     private Collection<Subscriber> subscribers = new ArrayList<>();
+    private List<Command> command;
+    
 
-    public BallPanel(BallPit ballPit, int max_x, int max_y) {
+    public void setCommand(List<Command> command) {
+		this.command = command;
+	}
+
+	public BallPanel(BallPit ballPit, int max_x, int max_y) {
         addMouseListener(this);
         addKeyListener(this);
         setFocusable(true);
         this.ballPit = ballPit;
         this.max_x = max_x;
         this.max_y = max_y;
+        this.setCommand(new ArrayList<Command>());
     }
 
-    public BallPit getBallPit() {
+    public List<Command> getCommand() {
+		return command;
+	}
+
+	public BallPit getBallPit() {
         return ballPit;
     }
 
@@ -76,6 +88,7 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
         }
         if (command != null){
             command.execute();
+            this.command.add(command);
             notifySubscribers(this);
         }
     }
@@ -94,6 +107,7 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
         }
         if (command != null) {
             command.execute();
+            this.command.add(command);
             notifySubscribers(this);
         }
     }

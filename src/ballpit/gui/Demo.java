@@ -1,11 +1,13 @@
 package ballpit.gui;
 
-import ballpit.internals.Ball;
-import ballpit.internals.BallPit;
-import ballpit.observer.DisplayCount;
+import java.awt.HeadlessException;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+
+import ballpit.internals.BallPit;
+import ballpit.observer.DisplayCommand;
+import ballpit.observer.DisplayCount;
 
 public class Demo extends JFrame {
     public Demo() throws HeadlessException {
@@ -22,8 +24,10 @@ public class Demo extends JFrame {
         ballPanel.subscribe(displayCount);
         ballPanel.add(displayCount);
 
-        JLabel label = new JLabel("What is happening.");
+        DisplayCommand label = new DisplayCommand();
+        ballPanel.subscribe(label);
         ballPanel.add(label);
+        
         add(ballPanel);
     }
 
