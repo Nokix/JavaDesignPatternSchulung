@@ -83,7 +83,7 @@ public class BallPanel extends JPanel implements MouseListener, KeyListener {
     public void mousePressed(MouseEvent e) {
         Command command = null;
         switch (e.getButton()) {
-            case MouseEvent.BUTTON1 : command = new AddBall(new Ball(), ballPit); break;
+            case MouseEvent.BUTTON1 : command = new AddBall(new Ball().setX(e.getX()).setY(e.getY()), ballPit); break;
             case MouseEvent.BUTTON3 : command = new RemoveBall(ballPit); break;
         }
         if (command != null){

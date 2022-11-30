@@ -20,6 +20,37 @@ public class Ball implements Cloneable{
         this.speedX = ThreadLocalRandom.current().nextInt(-10, 11);
         this.speedY = ThreadLocalRandom.current().nextInt(-10, 11);
     }
+
+    public Ball setX(int x) {
+        this.x = x;
+        return this;
+    }
+
+    public Ball setY(int y) {
+        this.y = y;
+        return this;
+    }
+
+    public Ball setBallWidth(int ballWidth) {
+        this.ballWidth = ballWidth;
+        return this;
+    }
+
+    public Ball setBallHeight(int ballHeight) {
+        this.ballHeight = ballHeight;
+        return this;
+    }
+
+    public Ball setSpeedX(int speedX) {
+        this.speedX = speedX;
+        return this;
+    }
+
+    public Ball setSpeedY(int speedY) {
+        this.speedY = speedY;
+        return this;
+    }
+
     public int getX() {
         return x;
     }
